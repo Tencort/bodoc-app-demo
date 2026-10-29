@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+  Role: 보닥 앱 클릭 프로토타입 진입 파일 — 폰 프레임 안에 홈·진단·보상·상품 탭을 띄운다 (데이터는 전부 더미)
+  Key Features: 폰 프레임·상태바 뼈대, 웹폰트 로드, data.js → app.js 순서 로드
+  Dependencies: style.css, data.js, app.js, img/
+  Notes: ?ad=1 을 붙이면 광고 금지 요소(숨은 보험금·상담 유도)를 숨긴 광고용 화면이 된다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- 모델 촬영용 — 확대 막기, 홈 화면에 추가하면 주소창 없이 전체 화면 앱처럼 열기 -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#f9f9f9">
+<!-- 공개 주소로 배포하되 검색엔진에는 노출하지 않는다 -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="보닥">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="img/apple_touch_icon.png">
+<title>보닥</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="screens2.css">
+</head>
+<body>
+<div class="stage">
+  <div class="phone">
+    <div class="status"><span id="clock">12:30</span>
+      <span class="icons">
+        <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 11.5L.5 3.6a10.6 10.6 0 0115 0z" fill="#1d2024"/></svg>
+        <svg width="14" height="12" viewBox="0 0 14 12"><path d="M13 .5v11H1z" fill="#1d2024"/></svg>
+        <svg width="22" height="11" viewBox="0 0 22 11"><rect x=".5" y=".5" width="19" height="10" rx="2.5" fill="none" stroke="#1d2024" opacity=".5"/><rect x="2" y="2" width="14" height="7" rx="1.2" fill="#1d2024"/><rect x="20.5" y="3.5" width="1.2" height="4" rx=".6" fill="#1d2024" opacity=".5"/></svg>
+      </span>
+    </div>
+    <div id="screen"></div>
+  </div>
+</div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+  // 안드로이드 크롬 「앱 설치」 조건 — https 로 배포됐을 때만 등록 (로컬 파일로 열 땐 건너뜀)
+  if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>

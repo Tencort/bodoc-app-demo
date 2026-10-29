@@ -1,0 +1,353 @@
+/**
+ * Role: 2차 녹화(1000024173.mp4)에서 찾은 화면 스타일 — 숨은 보험금 조회·병원비 청구·자주 묻는 보상 질문·상품 필터 시트
+ * Key Features: 고정 하단 버튼, 조회 로딩, 검색창 포커스 상태, 치과 지역 목록, FAQ 카테고리 그리드, 필터 바텀시트
+ * Dependencies: style.css 의 색 토큰(:root)
+ * Notes: 영상에서 이 화면들 위에 뜬 팝업 2개(숨은 보험금 다음 단계·자동차 사고 보상 서비스)는 인앱메시지라 만들지 않았다.
+ */
+
+/* ---------- 보험사 로고 (가상 보험사 이니셜 원판) ---------- */
+svg.plate.logo { background: none; display: block; font-family: 'Pretendard', sans-serif; }
+
+/* ---------- 고정 하단 버튼 · 로딩 ---------- */
+.fixed-cta { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 16px 16px; background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 30%); z-index: 6; }
+.fixed-cta .btn { height: 58px; font-size: 17px; }
+.fixed-cta.center { display: flex; justify-content: center; }
+.btn.ghost-pill { width: auto; height: 46px; padding: 0 40px; border: 1px solid #d5d7da; border-radius: 23px; background: #fff; font-size: 15px; font-weight: 500; color: var(--text-1); }
+.loading { position: absolute; inset: 0; background: rgba(255, 255, 255, 0.9); z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; font-size: 15px; color: var(--text-2); animation: fade-in .2s; }
+.spin { width: 40px; height: 40px; border-radius: 50%; border: 4px solid #d9f3ff; border-top-color: var(--accent); animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- 숨은 보험금 조회 ---------- */
+.hid-hero { background: #eef3fb; padding: 34px 24px 28px; }
+.hid-hero h2 { font-size: 23px; line-height: 34px; font-weight: 600; }
+.hid-hero h2 em { font-style: normal; color: var(--accent-text); }
+.hid-hero img { display: block; width: 150px; height: 150px; object-fit: contain; margin: 22px auto 0; }
+.hid-qa { padding: 10px 20px; }
+.hid-qa .it { padding: 22px 0 6px; }
+.hid-qa .t { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 600; }
+.hid-qa .t svg { width: 22px; height: 22px; flex: none; }
+.hid-qa p { margin: 10px 0 0 11px; padding-left: 18px; border-left: 2px solid #eceef1; font-size: 14.5px; line-height: 24px; color: var(--text-3); }
+.hid-date { text-align: right; font-size: 12px; color: var(--text-4); padding: 18px 20px 0; }
+.hid-res { display: flex; flex-direction: column; align-items: center; padding: 50px 30px 40px; }
+.hid-res img { width: 120px; height: 120px; object-fit: contain; }
+.hid-res h2 { font-size: 22px; font-weight: 600; margin-top: 22px; }
+.hid-res p { font-size: 14px; color: var(--text-3); margin-top: 6px; }
+.btn.pill { width: 200px; height: 46px; border-radius: 23px; font-size: 15px; margin-top: 22px; }
+.btn.pill + .btn.pill { margin-top: 10px; }
+.btn.outline-b { border: 1.5px solid var(--accent); color: var(--accent-text); background: #fff; }
+.hid-note { background: #f2f4f7; margin: 20px 0 0; padding: 22px 20px 40px 36px; font-size: 12.5px; line-height: 20px; color: var(--text-3); }
+.hid-note li + li { margin-top: 6px; }
+
+/* ---------- 병원비 청구 ---------- */
+.hd-link { color: var(--accent); font-size: 17px; }
+.clm-h { font-size: 22px; line-height: 34px; font-weight: 400; padding: 50px 22px 36px; }
+.clm-row { display: flex; align-items: center; gap: 14px; width: calc(100% - 28px); margin: 0 14px 14px; padding: 24px 20px; background: #f7f8fa; border-radius: 18px; font-size: 18px; text-align: left; }
+.clm-row svg { width: 20px; height: 20px; flex: none; }
+.clm-row svg:first-child { width: 26px; height: 26px; color: var(--text-1); }
+.clm-row span { flex: 1; }
+.clm-note { padding: 10px 20px 0 34px; font-size: 12.5px; line-height: 20px; color: var(--text-3); }
+.clm-note span { color: var(--accent); }
+.srch { padding: 80px 18px 40px; }
+.srch .top { display: flex; justify-content: space-between; align-items: center; }
+.srch .crumb { display: flex; align-items: center; gap: 6px; font-size: 18px; color: #555; }
+.srch .crumb svg { width: 22px; height: 22px; }
+.srch .cs { width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid #16c5ff; display: flex; align-items: center; justify-content: center; color: #3a3d42; }
+.srch .cs svg { width: 26px; height: 26px; }
+.srch h2 { font-size: 27px; font-weight: 700; margin-top: 8px; letter-spacing: -1px; }
+.srch .box { display: flex; align-items: center; gap: 8px; margin-top: 20px; background: #f2f3f5; border-radius: 4px; padding: 0 14px; height: 52px; color: #8a8e94; }
+.srch .box svg { width: 22px; height: 22px; flex: none; }
+.srch .box input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; font-size: 16px; outline: none; color: var(--text-1); }
+/* 검색창을 누르면 앱처럼 기본 안내를 숨기고 검색 요령만 보여준다 — focus-within 을 쓰면 버튼 포커스에도 반응해 버튼이 사라지며 클릭이 먹지 않는다 */
+.srch .hint { display: none; font-size: 14px; line-height: 22px; color: #555; text-align: center; margin-top: 30px; }
+.srch:has(input:focus) .hint { display: block; }
+.srch:has(input:focus) .def { display: none; }
+.srch:has(input:focus) .box { background: #fff; border-bottom: 2px solid #6b6f75; border-radius: 0; }
+.srch .pick { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 16px; }
+.srch .pick span { text-align: left; }
+.srch .pick small { display: block; font-size: 13px; color: #555; }
+.srch .pick b { font-size: 17px; font-weight: 500; }
+.srch .pick img { width: 54px; height: 54px; object-fit: contain; }
+.srch .none { text-align: center; font-size: 13px; color: #6b6f75; margin-top: 70px; }
+.srch .photo { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 58px; margin-top: 12px; border: 2px solid #d5d7da; font-size: 17px; font-weight: 700; }
+.srch .photo svg { width: 30px; height: 26px; }
+.rg-sub { font-size: 13px; color: #8a8e94; padding: 4px 18px 16px; background: #fff; flex: none; }
+.rg { display: flex; align-items: baseline; gap: 2px; width: 100%; padding: 16px 18px; border-bottom: 1px solid #eef0f2; font-size: 16px; text-align: left; }
+.rg small { font-size: 12px; color: #8a8e94; }
+.rg.on { background: #2b3d9e; color: #fff; font-weight: 700; }
+.rg.on small { color: #cfd6ff; }
+
+/* ---------- 보상 탭 하단 링크 · 자주 묻는 보상 질문 ---------- */
+.faq .lk { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 14px 2px; font-size: 16px; font-weight: 500; color: var(--text-1); }
+.faq .lk span { width: 20px; color: #a4a8af; }
+.faq-srch { display: flex; align-items: center; margin: 16px 16px 0; height: 48px; border: 1px solid #cfd3d8; border-radius: 24px; padding: 0 4px 0 18px; }
+.faq-srch input { flex: 1; min-width: 0; border: 0; outline: none; font: inherit; font-size: 15px; background: none; }
+.faq-srch span { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; }
+.faq-srch span svg { width: 22px; height: 22px; }
+.faq-sec { display: flex; justify-content: space-between; align-items: center; padding: 34px 16px 14px; }
+.faq-sec b { font-size: 17px; font-weight: 500; }
+.faq-sec button { font-size: 14px; color: #6b6f75; }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px; }
+.faq-grid button { display: flex; align-items: center; gap: 12px; height: 52px; padding: 0 16px; background: #f7f8fa; border-radius: 14px; font-size: 16px; }
+.faq-grid svg { width: 24px; height: 24px; }
+.faq-top { padding: 44px 16px 0; }
+.faq-top > b { font-size: 17px; font-weight: 500; }
+.fq { display: block; width: 100%; text-align: left; padding: 18px 0 10px; }
+.fq .hd { display: flex; align-items: center; gap: 10px; }
+.fq em { font-style: normal; color: var(--accent); font-weight: 700; font-size: 14px; }
+.fq small { font-size: 12.5px; color: #8a8e94; }
+.fq .qq { display: block; font-size: 17px; line-height: 27px; margin: 8px 0 0 30px; }
+.fq-row { display: block; width: 100%; text-align: left; padding: 20px 18px; border-bottom: 1px solid #eef0f2; }
+.fq-row small { font-size: 12.5px; color: #8a8e94; }
+.fq-row span { display: block; font-size: 16px; line-height: 25px; margin-top: 6px; }
+.fqd { padding: 22px 18px 30px; }
+.fqd small { font-size: 13px; color: #8a8e94; }
+.fqd h2 { font-size: 18px; font-weight: 400; line-height: 28px; margin-top: 6px; padding-bottom: 16px; border-bottom: 1px solid #e4e6ea; }
+.fqd p { font-size: 17px; line-height: 30px; margin-top: 26px; }
+.fqr { background: #f7f8fa; padding: 30px 18px 40px; }
+.fqr > b { font-size: 16px; font-weight: 500; }
+.fqr button { display: block; width: 100%; text-align: left; font-size: 17px; line-height: 27px; padding: 14px 0; }
+.fqr .all { width: auto; margin: 18px auto 0; padding: 12px 40px; border: 1px solid #c9ccd1; border-radius: 24px; background: #fff; font-size: 15px; text-align: center; }
+
+/* ---------- 상품 탭 필터 시트 ---------- */
+.peer-t { font-size: 19px; font-weight: 600; text-align: left; }
+.peer-t u { text-underline-offset: 3px; }
+#filter-layer .dim { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 40; animation: fade-in .2s; }
+.fsheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 41; background: #fff; border-radius: 24px 24px 0 0; padding: 26px 22px 22px; animation: sheet-up .3s cubic-bezier(.2,.8,.2,1); }
+@keyframes sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+.fsheet .fh { display: flex; justify-content: space-between; align-items: center; }
+.fsheet .fh b { font-size: 19px; font-weight: 600; }
+.fsheet .fh button { width: 26px; height: 26px; }
+.fsheet .fl { font-size: 15px; font-weight: 500; margin-top: 30px; }
+.fchips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.fchips button { height: 40px; padding: 0 14px; border: 1px solid #dfe2e6; border-radius: 20px; font-size: 15px; color: #6b6f75; }
+.fchips button.on { border: 1.5px solid var(--accent); color: var(--accent-text); font-weight: 600; }
+.fsep { height: 1px; background: #eceef1; margin-top: 24px; }
+.fbtns { display: flex; gap: 10px; margin-top: 32px; }
+.fbtns button { height: 56px; border-radius: 14px; font-size: 17px; }
+.fbtns .reset { width: 32%; background: #eceef1; color: #6b6f75; }
+.fbtns .ok { flex: 1; background: var(--accent); color: #fff; font-weight: 600; }
+
+/* ---------- 원본 에셋 복원 (2026-10-29 사용자 지적: Codex 이미지가 원본과 달라 Figma·녹화 원본으로 교체) ---------- */
+/* 상품 캐러셀 — Figma card/상품/195: 원본 카드 이미지(배경색+보험사 로고) 위에 글자 */
+.pcard { width: 195px; height: 195px; background-size: cover; padding: 18px 16px; }
+.pcard .ins { font-size: 12px; font-weight: 500; color: #494d53; line-height: 18px; }
+.pcard .nm { font-size: 16px; font-weight: 600; line-height: 24px; margin-top: 2px; max-width: 163px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.pcard .tag { left: 16px; bottom: 18px; height: 20px; display: flex; align-items: center; padding: 0 6px; border-radius: 9999px; background: #000; font-size: 10px; font-weight: 600; }
+/* 카드 간격 = Figma 가운데 195 + 간격 30 + 옆 카드 117 의 중심 거리(186px)에 맞춤 → 겹침 -9px */
+.carousel { padding-left: calc(50% - 97.5px); padding-right: calc(50% - 97.5px); gap: 0; }
+.pcard { margin: 0 -4.5px; flex: none; transform-origin: center center; will-change: transform; }
+.recbox .mag { width: 90px; height: 90px; right: 20px; }
+/* 보상 홈 — 금고 80px, ? 상자 32px, 청구·문의 아이콘 54px */
+.comp-top .art img { width: 80px; height: 80px; }
+.qm span { width: 32px; height: 32px; border: 1px solid #e9ebef; background: #f2f4f6; border-radius: 6px; color: #7d8085; font-size: 24px; }
+.lcard .ic54 { width: 54px; height: 54px; flex: none; }
+/* 홈 숨은 보험금 카드 — 조회 결과 없음 상태 */
+.promo .clap { transform: scaleX(-1); }
+/* 숨은 보험금 안내 — Figma 서브 메인 */
+.hid-hero { position: relative; height: 294px; padding: 30px 20px; background: #ecf4ff; }
+.hid-hero h2 { font-size: 22px; line-height: 32px; font-weight: 600; }
+.hid-hero img { position: absolute; left: 50%; top: 114px; width: 160px; height: 160px; margin: 0; transform: translateX(-50%); }
+.hid-qa { display: flex; flex-direction: column; gap: 30px; padding: 30px 20px 50px; }
+.hid-qa .it { padding: 0; }
+.hid-qa .t { gap: 8px; font-size: 16px; font-weight: 600; color: #494d53; line-height: 24px; }
+.hid-qa .t img { width: 20px; height: 20px; flex: none; }
+.hid-qa p { margin: 10px 0 0 8px; padding-left: 14px; border-left: 2px solid #e4e6ea; font-size: 14px; font-weight: 500; line-height: 22px; color: #7d8085; }
+.hid-share { border-top: 10px solid #f2f4f6; padding: 30px 0; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+.hid-share p { font-size: 18px; font-weight: 600; line-height: 28px; }
+.hid-share button { display: flex; align-items: center; gap: 4px; background: #54585e; color: #fff; border-radius: 9999px; padding: 9px 16px; font-size: 14px; font-weight: 600; }
+.fixed-cta .btn { height: 56px; font-size: 16px; }
+/* 숨은 보험금 결과 없음 — Figma 결과(없음) */
+.hid-date { padding: 10px 20px 0; font-size: 12px; color: #7d8085; }
+.hid-res { padding: 60px 30px 40px; }
+.hid-res .clap { width: 80px; height: 80px; transform: scaleX(-1); }
+.hid-res h2 { font-size: 22px; line-height: 32px; margin-top: 30px; }
+.hid-res p { font-size: 16px; line-height: 24px; margin-top: 4px; }
+.hid-res .btn.pill { width: 197px; height: 48px; font-size: 16px; }
+.hid-res .btn.pill:first-of-type { margin-top: 24px; }
+.hid-note { margin-top: auto; padding: 20px 20px 50px 12px; background: #f2f4f6; display: flex; flex-direction: column; gap: 6px; }
+.hid-note p { display: flex; align-items: flex-start; font-size: 12px; line-height: 18px; color: #7d8085; }
+.hid-note p img { width: 20px; height: 20px; flex: none; margin-top: -1px; }
+
+/* 숨은 보험금 조회 결과(있음) — Figma 8332:96767 */
+.hid-found { padding: 40px 20px 50px; display: flex; flex-direction: column; align-items: center; }
+.hid-found h2 { align-self: stretch; font-size: 22px; line-height: 32px; font-weight: 600; margin-bottom: 30px; }
+.hid-found h2 em { font-style: normal; color: var(--accent-text); }
+.hf-item { display: flex; align-items: center; gap: 10px; width: 100%; padding: 16px; margin-bottom: 12px; background: #fff; border: 1px solid #e9ebef; border-radius: 16px; text-align: left; }
+.hf-item .plate { width: 40px; height: 40px; }
+.hf-item .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.hf-item .tx b { font-size: 16px; font-weight: 600; line-height: 24px; }
+.hf-item .tx small { font-size: 12px; color: #7d8085; line-height: 18px; }
+.hf-item .am { display: flex; align-items: center; gap: 4px; font-size: 16px; font-weight: 600; line-height: 24px; }
+.hf-item .am i { font-style: normal; font-size: 10px; font-weight: 600; line-height: 18px; padding: 0 6px; border-radius: 4px; }
+.hf-item .am i.o { background: #fff6f1; color: #f87e36; }
+.hf-item .am i.g { background: #f2f4f6; color: #7d8085; }
+.hf-item > svg { width: 24px; height: 24px; color: #7d8085; flex: none; }
+.hf-q { align-self: stretch; font-size: 13px; color: #7d8085; margin: 4px 0 30px; }
+.hid-found .btn.pill { width: auto; padding: 0 20px; height: 48px; font-size: 16px; margin: 0; }
+
+/* ---------- 3차 녹화 보강: 보험 종합 진단 · 전체 보장내역 · 인기 상품 상세 ---------- */
+.tsec { padding-top: 34px; }
+.venn { position: relative; height: 170px; display: flex; justify-content: center; align-items: center; }
+.venn .c { width: 152px; height: 152px; border-radius: 50%; opacity: 0.88; box-shadow: 0 10px 34px rgba(0, 0, 0, 0.07); }
+.venn .c.a { margin-right: -30px; }
+.venn .c.b { margin-left: -30px; }
+.venn .lb { position: absolute; top: 50%; transform: translateY(-50%); color: #fff; font-size: 20px; font-weight: 500; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.08); white-space: nowrap; }
+.venn .lb.a { right: calc(50% + 22px); }
+.venn .lb.b { left: calc(50% + 22px); }
+.vlegend { display: flex; justify-content: center; gap: 36px; margin-top: 4px; text-align: center; }
+.vlegend small { display: block; font-size: 14px; }
+.vlegend b { font-size: 30px; font-weight: 700; letter-spacing: -1px; }
+.vlegend b i { font-style: normal; font-size: 20px; font-weight: 400; margin-left: 4px; }
+.tsec h3 { margin-top: 30px; }
+.cv-item.ca .base { font-size: 13px; color: #6b6f75; margin-top: 14px; }
+.ca-need { margin-top: 20px; text-align: center; font-size: 13px; color: #6b6f75; }
+.ca-need span { display: block; }
+.ca-need .cv-bar { margin: 8px 0 10px; }
+.cv-bar.n i { background: #8fb6f3; }
+.cv-bar.h { margin-top: 30px; }
+.cv-bar.h i { background: #8fb6f3; }
+.pd-top { position: relative; }
+.top-rk { position: absolute; right: 30px; top: 0; width: 72px; height: 76px; background: #1fa6ff; color: #fff; font-size: 30px; font-weight: 800; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; clip-path: polygon(0 0, 100% 0, 100% 78%, 50% 100%, 0 78%); }
+.top-rk small { font-size: 14px; font-weight: 800; margin-bottom: 4px; }
+.simcard > div { min-width: 0; flex: 1; }
+.simcard .sins { display: block; font-size: 12px; color: #7d8085; margin-top: 2px; }
+.to-cat { display: block; margin: 22px auto 0; font-size: 14px; color: #6b6f75; }
+
+/* ---------- 글자·크기 원본 맞춤 (10-29 사용자 지적 — 녹화 1080px 프레임을 360dp 로 환산해 실측) ---------- */
+/* 보험사 로고는 원본 이미지 자체가 둥근 사각형 — 원으로 잘라내지 않는다 */
+img.plate { border-radius: 0; background: transparent !important; }
+/* 진단 > 내 보험료 합계 숫자 */
+.bigwon { padding: 34px 4px 24px; }
+.bigwon b { font-size: 32px; line-height: 38px; }
+.bigwon span { font-size: 18px; line-height: 26px; }
+/* 상품 상세 상단 */
+.pd-top { padding: 34px 20px 16px; }
+.pd-top .plate { width: 40px; height: 40px; }
+.pd-top .ins { font-size: 13px; margin-top: 20px; }
+.pd-top .nm { font-size: 18px; line-height: 27px; margin-top: 2px; letter-spacing: -0.6px; }
+.top-rk { right: 20px; width: 56px; height: 60px; font-size: 20px; }
+.top-rk small { font-size: 11px; margin-bottom: 2px; }
+.avg { padding: 20px; margin-top: 20px; border-radius: 16px; }
+.avg .h { font-size: 16px; }
+.avg .r { font-size: 12px; margin-top: 12px; }
+.avg .r b { font-size: 22px; }
+.pd-more { font-size: 14px; padding: 18px 0 10px; }
+.chart-sec { padding: 30px 20px 24px; background: #f9f9f9; }
+.chart-sec .hd p { font-size: 18px; line-height: 27px; }
+.mini-seg button { font-size: 12px; padding: 5px 7px; }
+.chart { height: 135px; margin-top: 46px; }
+.chart .gl { font-size: 9px; }
+.chart .b { width: 30px; }
+.chart .bars2 { gap: 77px !important; }
+.chart-ax { gap: 77px !important; font-size: 13px; }
+.chart-ax span { width: 30px; text-align: center; white-space: nowrap; display: flex; justify-content: center; }
+.share p, .similar .t { font-size: 18px; }
+.share button { font-size: 14px; padding: 11px 20px; }
+/* 연령대별(4개)은 막대 사이를 좁힌다 */
+.chart .bars2:has(.b:nth-child(3)) { gap: 34px !important; }
+.chart-sec:has(.b:nth-child(3)) .chart-ax { gap: 34px !important; }
+
+/* 숨은 보험금 조회 기준 바텀시트 — 화면 양옆 10px 띄운 둥근 카드 */
+#crit-layer .dim { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 40; animation: fade-in .2s; }
+.csheet { position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 41; background: #fff; border-radius: 24px; padding: 44px 20px 24px; animation: sheet-up .3s cubic-bezier(.2,.8,.2,1); max-height: 85%; overflow-y: auto; }
+.csheet h3 { font-size: 18px; line-height: 28px; font-weight: 600; margin-bottom: 20px; }
+.csheet .cs + .cs { margin-top: 12px; }
+.csheet .cs b { display: block; font-size: 16px; line-height: 24px; font-weight: 600; margin-bottom: 2px; }
+.csheet .cs p { font-size: 14px; line-height: 24px; color: #7d8085; letter-spacing: -1px; }
+.csheet .cs em { font-style: normal; font-weight: 600; letter-spacing: -0.5px; }
+.csheet .btn { margin-top: 30px; height: 56px; }
+.hf-q u { cursor: pointer; }
+
+/* ---------- 웹뷰 카드·보험 종합 진단 원본 비율 (10-29 2차 실측: 카드 좌우 20dp, 안쪽 여백 32dp, 본문 16dp) ---------- */
+.wv .wv-card { margin: 0 20px 16px; padding: 30px 32px; border-radius: 24px; }
+.wv .wv-card h3 { font-size: 20px; }
+.wv .desc { font-size: 16px; line-height: 27px; color: #6b6f75; }
+.wv .sticky-seg .pseg, .wv .pseg { margin: 0 20px 16px; }
+.tsec { padding-top: 40px; }
+.tsec h3 { margin-top: 34px; }
+/* 벤다이어그램 — 지름 108dp, 겹침 약 20dp, 원 안 글자 16dp, 아래 범례는 각 원 중심 정렬 */
+.venn { height: 112px; }
+.venn .c { width: 108px; height: 108px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+.venn .c.a { margin-right: -10px; }
+.venn .c.b { margin-left: -10px; }
+.venn .lb { font-size: 16px; width: 98px; text-align: center; }
+.venn .lb.a { right: auto; left: calc(50% - 103px); }
+.venn .lb.b { left: calc(50% + 5px); }
+.vlegend { gap: 0; margin-top: 14px; }
+.vlegend > div { width: 98px; }
+.vlegend small { font-size: 12px; line-height: 18px; white-space: nowrap; }
+.vlegend b { font-size: 19px; line-height: 26px; letter-spacing: -0.5px; white-space: nowrap; }
+.vlegend b i { font-size: 13px; margin-left: 3px; }
+.tsec .btn.violet, .wv .btn.violet { margin: 0 20px 16px; width: calc(100% - 40px); height: 56px; font-size: 17px; }
+
+/* 상품별 진단·보장내역 카드는 종합 진단보다 안쪽 여백이 좁다(약 22dp) — 원본 칩은 한 줄 3~4개 */
+.wv .wv-card:not(.tsec) { padding: 26px 22px; }
+.wv .chips { gap: 8px 6px; margin-top: 18px; }
+.wv .chips span { font-size: 13px; padding: 6px 10px; }
+.wv .facts { font-size: 14px; }
+.wv .facts b { font-size: 14.5px; }
+/* 보장내역(전체) — 원본은 담보 글자가 작고 촘촘하다 */
+.cv-cat { padding: 24px 22px 6px; }
+.cv-cat .hd { font-size: 19px; }
+.cv-item { padding: 22px 0 20px; }
+.cv-item h4 { font-size: 15.5px; }
+.cv-item.ca .base { font-size: 11.5px; margin-top: 10px; }
+.ca-need { font-size: 11px; margin-top: 16px; }
+.cv-item .cv-ax { font-size: 11px; }
+.cv-bar.h { margin-top: 24px; }
+.cv-item .rows { font-size: 14px; gap: 12px; }
+
+/* 자주 묻는 보상 질문 — 원본은 본문이 작고 카테고리 칸이 더 높다 */
+.faq-sec b { font-size: 15.5px; }
+.faq-grid button { height: 66px; font-size: 14px; gap: 10px; border-radius: 16px; }
+.faq-grid svg { width: 20px; height: 20px; }
+.faq-top { padding-top: 56px; }
+.faq-top > b { font-size: 15.5px; }
+.fq .qq { font-size: 15.5px; line-height: 25px; }
+.fqd h2 { font-size: 16.5px; line-height: 26px; }
+.fqd p { font-size: 15.5px; line-height: 27px; }
+.fqr > b { font-size: 15px; }
+.fqr button { font-size: 15.5px; line-height: 25px; }
+/* 병원비 청구 — 인사 20dp, 항목 줄은 더 높게 */
+.clm-h { font-size: 20px; line-height: 30px; padding: 46px 22px 34px; }
+.clm-row { padding: 28px 20px; font-size: 18.5px; }
+
+/* ---------- AI 플로팅(의사)·상품 카드 원본 맞춤 (10-29 사용자 지적) ---------- */
+/* 원본 플로팅은 흰 바탕+그라데이션 테두리가 아니라 연한 파랑(#98B9FA) 원판 위 의사 캐릭터 */
+.fab { padding: 0; background: radial-gradient(circle at 50% 40%, #a6c3ff, #95b6f8 70%); box-shadow: 0 4px 12px rgba(80, 110, 200, 0.18); overflow: hidden; }
+.fab img { background: transparent; border-radius: 50%; }
+/* 순위 카드 — button 기본값(세로 가운데 정렬) 때문에 글자가 아래로 쏠렸다. 위에서부터 쌓는다 */
+.pcard { display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; padding: 24px 16px 18px; }
+.pcard .ins { margin: 0; }
+/* 순위 배지 — 원본은 아래가 뾰족한 방패 모양 + 오른쪽 아래 진한 파랑 입체 테두리 */
+.pcard .rk { top: -3px; right: 8px; width: 28px; height: 31px; background: none; border-radius: 0; font-size: 15px; font-weight: 800; padding-bottom: 3px; isolation: isolate; }
+.pcard .rk::before, .pcard .rk::after { content: ''; position: absolute; inset: 0; clip-path: polygon(14% 0, 86% 0, 100% 12%, 100% 82%, 50% 100%, 0 82%, 0 12%); }
+.pcard .rk::before { background: #006cde; transform: translate(1.5px, 1.5px); z-index: -2; }
+.pcard .rk::after { background: #0cbbff; z-index: -1; }
+
+/* ---------- 레이아웃 깨짐 방지 (10-29 사용자 지적: 보장내역 상세보기 버튼·가입 보장군 칩) ---------- */
+/* 버튼 요소는 width:auto 면 글자 폭으로 줄어든다 — 카드 폭에 맞춰 늘린다 */
+.btn.violet { display: flex; width: calc(100% - 28px); box-sizing: border-box; }
+/* 휴대폰 「글자 크기」 설정·글꼴 자동 확대가 레이아웃을 밀어내지 않게 고정 */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+/* 어떤 요소도 화면 밖으로 가로 스크롤을 만들지 않게 — 칩·카드는 줄바꿈으로 버틴다 */
+.view, .scroll { max-width: 100%; overflow-x: hidden; }
+.wv-card, .chips { min-width: 0; max-width: 100%; }
+.chips span { white-space: nowrap; }
+
+/* ---------- 모바일 실행 — 모델 촬영용 ---------- */
+/* 길게 눌러 글자 선택·확대 메뉴가 뜨면 촬영이 끊기므로 막는다 (입력창은 예외) */
+body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; overscroll-behavior: none; }
+input { -webkit-user-select: text; user-select: text; }
+.scroll { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+/* 좁은 휴대폰(≤340px)에선 보장금액·만기일자 두 칸이 넘쳐서 줄을 나눈다 */
+@media (max-width: 340px) {
+  .cv-item .two:not(.grid) { flex-wrap: wrap; gap: 14px 22px; }
+}
+
+/* 상품명은 원본처럼 단어 단위로 줄바꿈(「KB 플러스 / 운전자상해보험…」), 제목~카드 간격·플로팅 크기 원본 실측 */
+.pcard .nm { word-break: keep-all; overflow-wrap: anywhere; }
+.carousel { padding-top: 14px; }
+.pcard { border-radius: 18px; }
+.fab { width: 58px; height: 58px; }
